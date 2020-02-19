@@ -15,6 +15,9 @@ SELECT
 	count(distinct character_id) as Total_Players
 FROM charactercreator_character
 """ 
+result1 = cursor.execute(query_character_total).fetchall()
+
+
 
 query_unique_subclasses = """
 SELECT
@@ -45,25 +48,28 @@ FROM
 	charactercreator_thief;
 """
 
-total_items_query = 
-"""
+result2 = cursor.execute(query_unique_subclasses).fetchall()
+
+total_items_query = """
 SELECT
 	count(DISTINCT item_id)
 from
 	armory_item
 """
+result3 = cursor.execute(total_items_query).fetchall()
 
-total_weapons = 
-"""
+
+total_weapons = """
 SELECT
 	count(DISTINCT item_ptr_id) as Total_Weapons
 from
 	armory_weapon
 """
-print(total_items_query - total_weapons)
 
-items_from_players_query = 
-"""
+result4 = cursor.execute(total_weapons).fetchall()
+
+
+items_from_players_query = """
 SELECT
 	character_id,
 	count(item_id)
@@ -72,6 +78,8 @@ from
 GROUP BY character_id
 LIMIT 20
 """
+result4 = cursor.execute(items_from_players_query).fetchall()
+
 
 average_weapons_query = """
 
@@ -125,8 +133,4 @@ SELECT
   ,inv.*
 FROM charactercreator_character c
 JOIN charactercreator_character_inventory inv ON inv.character_id = c.character_id
-"""
-
-"""
-
 """
