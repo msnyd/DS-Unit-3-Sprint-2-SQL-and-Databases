@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 import psycopg2
+import sqlite3
 load_dotenv() #> loads contents of the .env file into the script's environment
 DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
@@ -10,12 +11,13 @@ connection = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD
 print("CONNECTION:", connection)
 cursor = connection.cursor()
 print("CURSOR:", cursor)
-# TODO: create a new table
-
+ 
 
 class StorageService():
+
+
     def __init__(self):
-        self.sqlite_connection = sqlite3.connect(DB_FILEPATH)
+        self.sqlite_connection = sqlite3.connect(r'C:\Users\Matt\Documents\GitHub\DS-Unit-3-Sprint-2-SQL-and-Databases\rpg_db\rpg_db.sqlite3')
         self.sqlite_cursor = self.sqlite_connection.cursor()
         self.pg_connection = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
         self.pg_cursor = self.pg_connection.cursor()
@@ -36,6 +38,7 @@ class StorageService():
             wisdom INT
         );
         """
+
         print(create_query)
         self.pg_cursor.execute(create_query)
         self.pg_connection.commit()
